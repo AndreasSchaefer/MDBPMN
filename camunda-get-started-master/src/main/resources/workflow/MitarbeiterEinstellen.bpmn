@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mdbpmn="MDBPMN" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://activiti.org/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="_djlnEC5GEeWu28Qc4ny4Hg" exporter="camunda modeler" exporterVersion="2.7.0" targetNamespace="http://activiti.org/bpmn">
+  <bpmn2:collaboration id="_Collaboration_4">
+    <bpmn2:participant id="_Participant_4" name="Unternehmen" processRef="MitarbeiterEinstellen"/>
+  </bpmn2:collaboration>
+  <bpmn2:process id="MitarbeiterEinstellen" name="Mitarbeiter einstellen" isExecutable="true">
+    <bpmn2:laneSet id="LaneSet_1" name="Lane Set 1">
+      <bpmn2:lane id="Lane_1" name="Vorgesetzter">
+        <bpmn2:flowNodeRef>StartMitarbeiterEinstellen</bpmn2:flowNodeRef>
+      </bpmn2:lane>
+      <bpmn2:lane id="Lane_2" name="Personalabteilung">
+        <bpmn2:flowNodeRef>TaskEinstellungVornehmen</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>EndEvent_1</bpmn2:flowNodeRef>
+      </bpmn2:lane>
+    </bpmn2:laneSet>
+    <bpmn2:startEvent id="StartMitarbeiterEinstellen" camunda:formKey="embedded:app:forms/mdbpmnStartForm.html" name="Einstellung Mitarbeiter &#xD;&#xA;beantragen">
+      <bpmn2:extensionElements>
+        <mdbpmn:formData>
+        	<mdbpmn:titles>
+        		<mdbpmn:label language="DE" value="Einstellung eines Mitarbeiters beantragen"/>
+				<mdbpmn:label language="EN-US" value="Apply for hiring an employee"/>
+        	</mdbpmn:titles>
+			<mdbpmn:formItems><mdbpmn:row><mdbpmn:column>
+				<mdbpmn:properties>
+					<mdbpmn:property id="style" value="width: 48%; margin: 5px;" />
+				</mdbpmn:properties>
+			<mdbpmn:formField id="firstname" type="string" class="de.schaefer.beispiel.Employee" />
+			<mdbpmn:formField id="surname" type="string" class="de.schaefer.beispiel.Employee" />
+			<mdbpmn:formField id="mail" type="string" class="de.schaefer.beispiel.Employee" />
+			<mdbpmn:formField id="branchOffice" type="Enum" definition="de.schaefer.beispiel.BranchOffice" class="de.schaefer.beispiel.Employee" />
+			<mdbpmn:formField id="jobname" type="String" class="de.schaefer.beispiel.Employee" />
+			</mdbpmn:column>
+			<mdbpmn:column>
+				<mdbpmn:properties>
+					<mdbpmn:property id="style" value="width: 48%; margin: 5px;" />
+				</mdbpmn:properties>
+			<mdbpmn:formField id="street" type="string" class="de.schaefer.beispiel.Address" />
+			<mdbpmn:formField id="postcode" type="string" class="de.schaefer.beispiel.Address" />
+			<mdbpmn:formField id="city" type="string" class="de.schaefer.beispiel.Address" />
+			<mdbpmn:formField id="country" type="string" class="de.schaefer.beispiel.Address" />
+			</mdbpmn:column>
+			</mdbpmn:row>
+			<mdbpmn:row>
+			<mdbpmn:column>
+			<mdbpmn:formField id="qualifications" type="Map" keyType="String" valueType="Date" class="de.schaefer.beispiel.Employee" />
+			</mdbpmn:column>
+			</mdbpmn:row>
+			</mdbpmn:formItems>
+		</mdbpmn:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="StartMitarbeiterEinstellen" targetRef="TaskEinstellungVornehmen"/>
+    <bpmn2:userTask id="TaskEinstellungVornehmen" camunda:formKey="embedded:app:forms/mdbpmnForm.html" camunda:candidateGroups="Personalabteilung" name="Einstellung vornehmen">
+      <bpmn2:extensionElements>
+        <mdbpmn:formData>
+        	<mdbpmn:titles>
+        		<mdbpmn:label language="DE" value="Einstellung vornehmen "/>
+				<mdbpmn:label language="EN-US" value="Hire employee" />
+        	</mdbpmn:titles>
+			<mdbpmn:formItems><mdbpmn:row><mdbpmn:column>
+			<mdbpmn:properties>
+					<mdbpmn:property id="style" value="width: 48%; margin: 5px;" />
+				</mdbpmn:properties>
+			<mdbpmn:formField id="firstname" type="string" class="de.schaefer.beispiel.Employee" />
+			<mdbpmn:formField id="surname" type="string" class="de.schaefer.beispiel.Employee" />
+			<mdbpmn:formField id="mail" type="string" class="de.schaefer.beispiel.Employee" />
+			<mdbpmn:formField id="branchOffice" type="Enum" definition="de.schaefer.beispiel.BranchOffice" class="de.schaefer.beispiel.Employee">
+				<mdbpmn:validation>
+					<mdbpmn:constraint name="readonly" />
+				</mdbpmn:validation>
+			</mdbpmn:formField>
+			<mdbpmn:formField id="jobname" type="String" class="de.schaefer.beispiel.Employee">
+				<mdbpmn:validation>
+					<mdbpmn:constraint name="readonly" />
+				</mdbpmn:validation>
+			</mdbpmn:formField>
+			</mdbpmn:column>
+			<mdbpmn:column>
+				<mdbpmn:properties>
+					<mdbpmn:property id="style" value="width: 48%; margin: 5px;" />
+				</mdbpmn:properties>
+			<mdbpmn:formField id="street" type="string" class="de.schaefer.beispiel.Address" />
+			<mdbpmn:formField id="postcode" type="string" class="de.schaefer.beispiel.Address" />
+			<mdbpmn:formField id="city" type="string" class="de.schaefer.beispiel.Address" />
+			<mdbpmn:formField id="country" type="string" class="de.schaefer.beispiel.Address" />
+			</mdbpmn:column>
+			</mdbpmn:row>
+			<mdbpmn:row><mdbpmn:column>
+			<mdbpmn:description id="descriptionSalaryEnitilement">
+				<mdbpmn:labels>
+					<mdbpmn:label language="de" value="Bitte Gehalt und Urlaubstage bestimmen!" />
+					<mdbpmn:label language="en-US" value="Please determines salary and vacation days!" />
+				</mdbpmn:labels>
+			</mdbpmn:description>
+			</mdbpmn:column></mdbpmn:row>
+			<mdbpmn:row><mdbpmn:column>
+				<mdbpmn:properties>
+					<mdbpmn:property id="style" value="width: 200px; margin: 5px;" />
+				</mdbpmn:properties>
+						<mdbpmn:formField id="monthSalary" type="Double" class="de.schaefer.beispiel.Employee" />
+			</mdbpmn:column><mdbpmn:column>
+				<mdbpmn:properties>
+					<mdbpmn:property id="style" value="width: 200px; margin: 5px;" />
+				</mdbpmn:properties>
+						<mdbpmn:formField id="holidayEntitlement" type="Integer" class="de.schaefer.beispiel.Employee" />
+			</mdbpmn:column></mdbpmn:row>
+			<mdbpmn:row><mdbpmn:column>
+			<mdbpmn:formField id="qualifications" type="Map" keyType="String" valueType="Date" class="de.schaefer.beispiel.Employee">
+				<mdbpmn:validation>
+					<mdbpmn:constraint name="readOnly" />
+				</mdbpmn:validation>
+			</mdbpmn:formField>
+			</mdbpmn:column></mdbpmn:row>
+			</mdbpmn:formItems>
+		</mdbpmn:formData>
+ </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_1">
+      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" name="" sourceRef="TaskEinstellungVornehmen" targetRef="EndEvent_1"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="_Collaboration_4">
+      <bpmndi:BPMNShape id="_BPMNShape_Participant_5" bpmnElement="_Participant_4" isHorizontal="true">
+        <dc:Bounds height="216.0" width="540.0" x="293.0" y="109.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_Lane_8" bpmnElement="Lane_1" isHorizontal="true">
+        <dc:Bounds height="107.0" width="510.0" x="323.0" y="109.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_Lane_9" bpmnElement="Lane_2" isHorizontal="true">
+        <dc:Bounds height="110.0" width="510.0" x="323.0" y="215.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_12" bpmnElement="TaskEinstellungVornehmen">
+        <dc:Bounds height="80.0" width="100.0" x="516.0" y="227.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_4" bpmnElement="StartMitarbeiterEinstellen">
+        <dc:Bounds height="36.0" width="36.0" x="416.0" y="156.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="38.0" width="149.0" x="372.0" y="114.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="_BPMNShape_StartEvent_4" targetElement="_BPMNShape_UserTask_12">
+        <di:waypoint xsi:type="dc:Point" x="452.0" y="174.0"/>
+        <di:waypoint xsi:type="dc:Point" x="484.0" y="174.0"/>
+        <di:waypoint xsi:type="dc:Point" x="484.0" y="267.0"/>
+        <di:waypoint xsi:type="dc:Point" x="516.0" y="267.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="470.0" y="174.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_7" bpmnElement="EndEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="696.0" y="249.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="714.0" y="290.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="_BPMNShape_UserTask_12" targetElement="_BPMNShape_EndEvent_7">
+        <di:waypoint xsi:type="dc:Point" x="616.0" y="267.0"/>
+        <di:waypoint xsi:type="dc:Point" x="696.0" y="267.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="653.0" y="267.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

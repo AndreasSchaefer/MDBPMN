@@ -1,0 +1,52 @@
+<formFields>
+	<formField reference="startDateRef">
+		<labels>
+			<label language="DE" value="Start des Urlaubs" />
+			<label language="EN-US" value="Startdate of Holiday" />
+		</labels>
+		<validation>
+			<constraint name="required" />
+		</validation>
+	</formField>
+
+	<formField reference="endDateRef">
+		<labels>
+			<label language="DE" value="Ende des Urlaubs" />
+			<label language="EN-US" value="End of Holiday" />
+		</labels>
+		<validation>
+			<constraint name="required" />
+		</validation>
+	</formField>
+	
+	<formField reference="acceptHolidayRef">
+		<labels>
+			<label language="DE" value="Der Urlaub wird genehmigt" />
+			<label language="EN-US" value="The Holiday will be approved" />
+		</labels>
+		<validation>
+			<constraint name="required" />
+		</validation>
+	</formField>
+	
+	<formField reference="JustificationSupervisorRef">
+		<labels>
+			<label language="DE" value="Begründung des Vorgesetzten" />
+			<label language="EN-US" value="Justification of Supervisor" />
+		</labels>
+		<validation>
+			<constraint name="required" />
+		</validation>
+	</formField>
+	
+	<formField reference="JustificationPersonnelDepartmentRef">
+		<labels>
+			<label language="DE" value="Begründung der Personalabteilung" />
+			<label language="EN-US" value="Justification of Personnel Department" />
+		</labels>
+		<validation>
+			<constraint name="required" />
+		</validation>
+	</formField>
+
+</formFields>

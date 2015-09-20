@@ -1,0 +1,21 @@
+.mdbpmnrow {
+	clear: both;
+}
+
+.mdbpmncolumn {
+	float: left;
+	margin: 5px;
+}
+
+.mdbpmnkey {
+	float: left;
+}
+
+.mdbpmnvalue {
+	float: left;
+}
+
+.mdbpmntitle {
+	font-size: 14pt;
+	border-bottom: 1px solid;
+}

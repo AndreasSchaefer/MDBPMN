@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://activiti.org/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:mdbpmn="MDBPMN" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="_e8Rq0CsxEeWqtOaUhKyNrQ" exporter="camunda modeler" exporterVersion="2.7.0" targetNamespace="http://activiti.org/bpmn">
+  <bpmn2:collaboration id="_Collaboration_3">
+    <bpmn2:participant id="_Participant_3" name="Unternehmen" processRef="Urlaubsantrag"/>
+  </bpmn2:collaboration>
+  <bpmn2:process id="Urlaubsantrag" isExecutable="true">
+    <bpmn2:laneSet id="LaneSet_1" name="Lane Set 1">
+      <bpmn2:lane id="Lane_1" name="Mitarbeiter">
+        <bpmn2:flowNodeRef>MitarbeiterEntscheidetTask</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>ExclusiveGateway_2</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>StartEvent_1</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>EndEvent_4</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>EndEvent_2</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>MitarbeiterCheckedTask</bpmn2:flowNodeRef>
+      </bpmn2:lane>
+      <bpmn2:lane id="Lane_3" name="Vorgesetzer">
+        <bpmn2:flowNodeRef>TaskVorgesetzter</bpmn2:flowNodeRef>
+      </bpmn2:lane>
+      <bpmn2:lane id="Lane_4" name="Personalabteilung">
+        <bpmn2:flowNodeRef>PersonalabteilungPrueftTask</bpmn2:flowNodeRef>
+      </bpmn2:lane>
+    </bpmn2:laneSet>
+    <bpmn2:userTask id="TaskVorgesetzter" camunda:formKey="embedded:app:forms/mdbpmnForm.html" camunda:candidateGroups="Vorgesetzter" name="Vorgestzer prüft Antrag">
+      <bpmn2:extensionElements>
+      	<mdbpmn:formData>
+      		<mdbpmn:formItems>
+      			<mdbpmn:row><mdbpmn:column>
+      				<mdbpmn:properties>
+						<mdbpmn:property id="style" value="width: 96%; margin: 5px;" />
+					</mdbpmn:properties>
+      				<mdbpmn:formField id="JustificationSupervisor" class="PROCESS" type="String" referenceFile="ProcessFieldsUrlaubsantrag.xml" referenceName="JustificationSupervisorRef"></mdbpmn:formField>
+      			</mdbpmn:column></mdbpmn:row>
+      		</mdbpmn:formItems>
+      	</mdbpmn:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_2">
+        <bpmn2:sourceRef>DataObjectReference_2</bpmn2:sourceRef>
+        <bpmn2:targetRef>TaskVorgesetzter</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+    </bpmn2:userTask>
+    <bpmn2:userTask id="PersonalabteilungPrueftTask" camunda:formKey="embedded:app:forms/mdbpmnForm.html" camunda:candidateGroups="Personalabteilung" name="Personal-&#xD;&#xA;Abteilung prüft Antrag">
+      <bpmn2:extensionElements>
+        <mdbpmn:formData><mdbpmn:formItems><mdbpmn:row><mdbpmn:column><![CDATA[
+      	 ]]><mdbpmn:properties>
+					<mdbpmn:property id="style" value="width: 96%; margin: 5px;" />
+				</mdbpmn:properties>
+      	 <mdbpmn:formField id="holidayEntitlement" type="Integer" class="de.schaefer.beispiel.Employee"><![CDATA[
+      			]]><mdbpmn:validation><mdbpmn:constraint name="readOnly"/></mdbpmn:validation><![CDATA[
+      		]]></mdbpmn:formField><![CDATA[
+      		]]><mdbpmn:formField id="hrCheck" type="Boolean" class="PROCESS" referenceFile="ProcessFieldsUrlaubsantrag.xml" referenceName="acceptHolidayRef"/><![CDATA[
+      			]]><mdbpmn:formField id="JustificationPersonnelDepartment" class="PROCESS" type="String" referenceFile="ProcessFieldsUrlaubsantrag.xml" referenceName="JustificationPersonnelDepartmentRef"></mdbpmn:formField>
+      	</mdbpmn:column></mdbpmn:row></mdbpmn:formItems>
+        <mdbpmn:overrideFormItems><![CDATA[
+      		]]><mdbpmn:formField id="startDate"><![CDATA[
+      		]]><mdbpmn:validation><mdbpmn:constraint name="readOnly"/></mdbpmn:validation><![CDATA[
+      		]]></mdbpmn:formField><![CDATA[
+      		]]><mdbpmn:formField id="endDate"><![CDATA[
+      		]]><mdbpmn:validation><mdbpmn:constraint name="readOnly"/></mdbpmn:validation><![CDATA[
+      		]]></mdbpmn:formField><![CDATA[
+      	]]></mdbpmn:overrideFormItems></mdbpmn:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_17</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_9</bpmn2:outgoing>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_3">
+        <bpmn2:sourceRef>DataObjectReference_2</bpmn2:sourceRef>
+        <bpmn2:targetRef>PersonalabteilungPrueftTask</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_9" name="" sourceRef="PersonalabteilungPrueftTask" targetRef="MitarbeiterCheckedTask"/>
+    <bpmn2:userTask id="MitarbeiterEntscheidetTask" camunda:formKey="embedded:app:forms/mdbpmnForm.html" camunda:candidateGroups="Mitarbeiter" name="Mitarbeiter entscheidet">
+      <bpmn2:extensionElements>
+        <mdbpmn:formData><mdbpmn:formItems><mdbpmn:row><mdbpmn:column><![CDATA[
+      		]]><mdbpmn:properties>
+					<mdbpmn:property id="style" value="width: 96%; margin: 5px;" />
+				</mdbpmn:properties>
+      		<mdbpmn:formField id="startDate" type="Date" class="PROCESS" referenceFile="ProcessFieldsUrlaubsantrag.xml" referenceName="startDateRef"><![CDATA[
+      			]]><mdbpmn:validation><mdbpmn:constraint name="readOnly"/></mdbpmn:validation><![CDATA[
+      		]]></mdbpmn:formField><![CDATA[
+			]]><mdbpmn:formField id="endDate" type="Date" class="PROCESS" referenceFile="ProcessFieldsUrlaubsantrag.xml" referenceName="endDateRef"><![CDATA[
+				]]><mdbpmn:validation><mdbpmn:constraint name="readOnly"/></mdbpmn:validation><![CDATA[
+			]]></mdbpmn:formField><![CDATA[
+			]]><mdbpmn:formField id="employeeCheck" type="Boolean" class="PROCESS">
+				<mdbpmn:labels>
+					<mdbpmn:label language="DE" value="Ich akzeptiere diesen Vorschlag"></mdbpmn:label>
+					<mdbpmn:label language="EN-US" value="I accept this proposal"></mdbpmn:label>
+				</mdbpmn:labels>
+			</mdbpmn:formField>
+			<mdbpmn:formField id="JustificationSupervisor" class="PROCESS" type="String" referenceFile="ProcessFieldsUrlaubsantrag.xml" referenceName="JustificationSupervisorRef">
+				<mdbpmn:validation>
+					<mdbpmn:constraint name="readOnly" />
+				</mdbpmn:validation>
+			</mdbpmn:formField>
+			<![CDATA[
+      	]]></mdbpmn:column></mdbpmn:row></mdbpmn:formItems></mdbpmn:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_14</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_14" name="" sourceRef="MitarbeiterEntscheidetTask" targetRef="ExclusiveGateway_2"/>
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_2">
+      <bpmn2:incoming>SequenceFlow_14</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_15</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_17</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="SequenceFlow_15" name="" sourceRef="ExclusiveGateway_2" targetRef="EndEvent_4">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression"><![CDATA[${employeeCheck== "off"}]]></bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_17" name="" sourceRef="ExclusiveGateway_2" targetRef="PersonalabteilungPrueftTask"/>
+    <bpmn2:startEvent id="StartEvent_1" camunda:formKey="embedded:app:forms/mdbpmnStartForm.html" name="stellt Urlaubsantrag">
+      <bpmn2:extensionElements>
+        <mdbpmn:formData><![CDATA[
+        	]]><mdbpmn:titles><![CDATA[
+        		]]><mdbpmn:label language="DE" value="Urlaub beantragen"/><![CDATA[
+				]]><mdbpmn:label language="EN-US" value="Request Leave"/><![CDATA[
+        	]]></mdbpmn:titles><![CDATA[
+			]]><mdbpmn:formItems><mdbpmn:row><mdbpmn:column>
+				<mdbpmn:properties>
+					<mdbpmn:property id="style" value="width: 96%; margin: 5px;" />
+				</mdbpmn:properties>
+			<![CDATA[
+			]]><mdbpmn:formField id="de.schaefer.beispiel.Employee" type="Integer" class="PROCESS"><![CDATA[
+						]]><mdbpmn:labels><![CDATA[
+							]]><mdbpmn:label language="DE" value="Mitarbeiter Identifikationsnummer"/><![CDATA[
+							]]><mdbpmn:label language="EN-US" value="Identity Number of Employee"/><![CDATA[
+						]]></mdbpmn:labels><![CDATA[
+						]]><mdbpmn:validation><![CDATA[
+							]]><mdbpmn:constraint name="required"/><![CDATA[
+						]]></mdbpmn:validation><![CDATA[
+			]]></mdbpmn:formField><![CDATA[
+			]]><mdbpmn:formField id="startDate" type="Date" class="PROCESS" referenceFile="ProcessFieldsUrlaubsantrag.xml" referenceName="startDateRef"><![CDATA[
+			]]></mdbpmn:formField><![CDATA[
+			]]><mdbpmn:formField id="endDate" type="Date" class="PROCESS" referenceFile="ProcessFieldsUrlaubsantrag.xml" referenceName="endDateRef"><![CDATA[
+			]]></mdbpmn:formField><![CDATA[
+			]]></mdbpmn:column></mdbpmn:row><![CDATA[
+		]]></mdbpmn:formItems></mdbpmn:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="StartEvent_1" targetRef="TaskVorgesetzter"/>
+    <bpmn2:endEvent id="EndEvent_4" name="Mitarbeiter hat Vorschlag abgelehnt">
+      <bpmn2:incoming>SequenceFlow_15</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:endEvent id="EndEvent_2" name="Urlaub genehmigt &#xD;&#xA;oder abgelehnt">
+      <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:userTask id="MitarbeiterCheckedTask" camunda:formKey="embedded:app:forms/mdbpmnForm.html" camunda:candidateGroups="Mitarbeiter" name="Mitarbeiter bestätigt Erhalt">
+      <bpmn2:extensionElements>
+        <mdbpmn:formData><mdbpmn:formItems><mdbpmn:row><mdbpmn:column>
+        <mdbpmn:properties>
+					<mdbpmn:property id="style" value="width: 96%; margin: 5px;" />
+				</mdbpmn:properties>
+        <![CDATA[
+          		]]><mdbpmn:formField id="startDate" type="Date" class="PROCESS" referenceFile="ProcessFieldsUrlaubsantrag.xml" referenceName="startDateRef"><![CDATA[
+      			]]><mdbpmn:validation><mdbpmn:constraint name="readOnly"/></mdbpmn:validation><![CDATA[
+      		]]></mdbpmn:formField><![CDATA[
+			]]><mdbpmn:formField id="endDate" type="Date" class="PROCESS" referenceFile="ProcessFieldsUrlaubsantrag.xml" referenceName="endDateRef"><![CDATA[
+				]]><mdbpmn:validation><mdbpmn:constraint name="readOnly"/></mdbpmn:validation><![CDATA[
+			]]></mdbpmn:formField><![CDATA[
+			]]>
+		<mdbpmn:formField id="JustificationSupervisor" class="PROCESS" type="String" referenceFile="ProcessFieldsUrlaubsantrag.xml" referenceName="JustificationSupervisorRef">
+				<mdbpmn:validation>
+					<mdbpmn:constraint name="readOnly" />
+				</mdbpmn:validation>
+			</mdbpmn:formField>
+			<mdbpmn:formField id="hrCheck" type="Boolean" class="PROCESS" referenceFile="ProcessFieldsUrlaubsantrag.xml" referenceName="acceptHolidayRef">
+				<mdbpmn:properties>
+					<mdbpmn:property id="type" value="select" />
+					<mdbpmn:property id="disabled" />
+				</mdbpmn:properties>
+				<mdbpmn:validation>
+					<mdbpmn:constraint name="readOnly" />
+				</mdbpmn:validation>
+			</mdbpmn:formField>
+			<mdbpmn:formField id="JustificationPersonnelDepartment" class="PROCESS" type="String" referenceFile="ProcessFieldsUrlaubsantrag.xml" referenceName="JustificationPersonnelDepartmentRef">
+				<mdbpmn:validation>
+					<mdbpmn:constraint name="readOnly" />
+				</mdbpmn:validation>
+			</mdbpmn:formField>
+			<mdbpmn:description id="employeeReceipt"><![CDATA[
+				]]><mdbpmn:labels><![CDATA[
+					]]><mdbpmn:label language="DE" value="Ich habe die Entscheidung zur Kenntnis genommen"/><![CDATA[
+					]]><mdbpmn:label language="EN-US" value="I have taken the decision to the attention"/><![CDATA[
+				]]></mdbpmn:labels>
+				<mdbpmn:properties>
+					<mdbpmn:property id="style" value="font-size: 16pt;" />
+				</mdbpmn:properties>
+				<![CDATA[
+			]]></mdbpmn:description>
+		</mdbpmn:column></mdbpmn:row></mdbpmn:formItems></mdbpmn:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_10</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_10" name="" sourceRef="MitarbeiterCheckedTask" targetRef="EndEvent_2"/>
+    <bpmn2:dataObject id="DataObject_1" name="Data Object 1"/>
+    <bpmn2:dataObjectReference id="DataObjectReference_2" name="Prüf-Formular" dataObjectRef="DataObject_1">
+      <bpmn2:extensionElements>
+        <mdbpmn:formData><![CDATA[
+			]]><mdbpmn:formItems><mdbpmn:row><mdbpmn:column><mdbpmn:properties>
+					<mdbpmn:property id="style" value="width: 96%; margin: 5px;" />
+				</mdbpmn:properties>
+			<![CDATA[
+			]]><mdbpmn:formField id="firstname" type="string" class="de.schaefer.beispiel.Employee"><![CDATA[
+						]]><mdbpmn:validation><![CDATA[
+							]]><mdbpmn:constraint name="readOnly"/><![CDATA[
+						]]></mdbpmn:validation><![CDATA[
+			]]></mdbpmn:formField><![CDATA[
+			]]><mdbpmn:formField id="surname" type="string" class="de.schaefer.beispiel.Employee"><![CDATA[
+						]]><mdbpmn:validation><![CDATA[
+							]]><mdbpmn:constraint name="readOnly"/><![CDATA[
+						]]></mdbpmn:validation><![CDATA[
+			]]></mdbpmn:formField><![CDATA[
+			]]><mdbpmn:formField id="id" type="Long" class="de.schaefer.beispiel.Employee"><![CDATA[
+						]]><mdbpmn:validation><![CDATA[
+							]]><mdbpmn:constraint name="readOnly"/><![CDATA[
+						]]></mdbpmn:validation><![CDATA[
+			]]></mdbpmn:formField><![CDATA[
+			]]><mdbpmn:formField id="startDate" type="Date" class="PROCESS" referenceFile="ProcessFieldsUrlaubsantrag.xml" referenceName="startDateRef"/><![CDATA[
+			]]><mdbpmn:formField id="endDate" type="Date" class="PROCESS" referenceFile="ProcessFieldsUrlaubsantrag.xml" referenceName="endDateRef"/><![CDATA[
+			]]></mdbpmn:column></mdbpmn:row></mdbpmn:formItems><![CDATA[
+		]]></mdbpmn:formData>
+      </bpmn2:extensionElements>
+    </bpmn2:dataObjectReference>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="TaskVorgesetzter" targetRef="MitarbeiterEntscheidetTask"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="_Collaboration_3">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_3" bpmnElement="StartEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="408.0" y="114.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="118.0" x="367.0" y="92.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_6" bpmnElement="TaskVorgesetzter">
+        <dc:Bounds height="80.0" width="100.0" x="374.0" y="219.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="_BPMNShape_StartEvent_3" targetElement="_BPMNShape_UserTask_6">
+        <di:waypoint xsi:type="dc:Point" x="426.0" y="150.0"/>
+        <di:waypoint xsi:type="dc:Point" x="426.0" y="184.0"/>
+        <di:waypoint xsi:type="dc:Point" x="426.0" y="184.0"/>
+        <di:waypoint xsi:type="dc:Point" x="426.0" y="219.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="420.0" y="250.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_Participant_3" bpmnElement="_Participant_3" isHorizontal="true">
+        <dc:Bounds height="445.0" width="747.0" x="298.0" y="0.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_Lane_4" bpmnElement="Lane_1" isHorizontal="true">
+        <dc:Bounds height="205.0" width="717.0" x="328.0" y="0.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_Lane_6" bpmnElement="Lane_3" isHorizontal="true">
+        <dc:Bounds height="109.0" width="717.0" x="328.0" y="204.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_Lane_7" bpmnElement="Lane_4" isHorizontal="true">
+        <dc:Bounds height="133.0" width="717.0" x="328.0" y="312.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_8" bpmnElement="PersonalabteilungPrueftTask">
+        <dc:Bounds height="80.0" width="97.0" x="672.0" y="336.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_9" bpmnElement="MitarbeiterEntscheidetTask">
+        <dc:Bounds height="80.0" width="100.0" x="540.0" y="92.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_10" bpmnElement="MitarbeiterCheckedTask">
+        <dc:Bounds height="80.0" width="100.0" x="804.0" y="92.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_9" bpmnElement="SequenceFlow_9" sourceElement="_BPMNShape_UserTask_8" targetElement="_BPMNShape_UserTask_10">
+        <di:waypoint xsi:type="dc:Point" x="768.0" y="376.0"/>
+        <di:waypoint xsi:type="dc:Point" x="854.0" y="376.0"/>
+        <di:waypoint xsi:type="dc:Point" x="854.0" y="172.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="851.0" y="268.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_4" bpmnElement="EndEvent_2">
+        <dc:Bounds height="36.0" width="36.0" x="948.0" y="114.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="107.0" x="913.0" y="72.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_10" bpmnElement="SequenceFlow_10" sourceElement="_BPMNShape_UserTask_10" targetElement="_BPMNShape_EndEvent_4">
+        <di:waypoint xsi:type="dc:Point" x="904.0" y="132.0"/>
+        <di:waypoint xsi:type="dc:Point" x="948.0" y="132.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="922.0" y="252.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_ExclusiveGateway_3" bpmnElement="ExclusiveGateway_2" isMarkerVisible="true">
+        <dc:Bounds height="50.0" width="50.0" x="696.0" y="106.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="721.0" y="252.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_6" bpmnElement="EndEvent_4">
+        <dc:Bounds height="36.0" width="36.0" x="704.0" y="36.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="211.0" x="617.0" y="12.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_14" bpmnElement="SequenceFlow_14" sourceElement="_BPMNShape_UserTask_9" targetElement="_BPMNShape_ExclusiveGateway_3">
+        <di:waypoint xsi:type="dc:Point" x="640.0" y="132.0"/>
+        <di:waypoint xsi:type="dc:Point" x="668.0" y="132.0"/>
+        <di:waypoint xsi:type="dc:Point" x="668.0" y="131.0"/>
+        <di:waypoint xsi:type="dc:Point" x="696.0" y="131.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="665.0" y="252.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_15" bpmnElement="SequenceFlow_15" sourceElement="_BPMNShape_ExclusiveGateway_3" targetElement="_BPMNShape_EndEvent_6">
+        <di:waypoint xsi:type="dc:Point" x="721.0" y="106.0"/>
+        <di:waypoint xsi:type="dc:Point" x="722.0" y="72.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="719.0" y="252.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_17" bpmnElement="SequenceFlow_17" sourceElement="_BPMNShape_ExclusiveGateway_3" targetElement="_BPMNShape_UserTask_8">
+        <di:waypoint xsi:type="dc:Point" x="721.0" y="156.0"/>
+        <di:waypoint xsi:type="dc:Point" x="721.0" y="246.0"/>
+        <di:waypoint xsi:type="dc:Point" x="720.0" y="246.0"/>
+        <di:waypoint xsi:type="dc:Point" x="720.0" y="336.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="718.0" y="252.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_DataObjectReference_5" bpmnElement="DataObjectReference_2">
+        <dc:Bounds height="50.0" width="36.0" x="408.0" y="351.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="84.0" x="384.0" y="406.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_DataInputAssociation_2" bpmnElement="DataInputAssociation_2" sourceElement="_BPMNShape_DataObjectReference_5" targetElement="_BPMNShape_UserTask_6">
+        <di:waypoint xsi:type="dc:Point" x="426.0" y="351.0"/>
+        <di:waypoint xsi:type="dc:Point" x="426.0" y="299.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_DataInputAssociation_3" bpmnElement="DataInputAssociation_3" sourceElement="_BPMNShape_DataObjectReference_5" targetElement="_BPMNShape_UserTask_8">
+        <di:waypoint xsi:type="dc:Point" x="444.0" y="376.0"/>
+        <di:waypoint xsi:type="dc:Point" x="672.0" y="376.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="_BPMNShape_UserTask_6" targetElement="_BPMNShape_UserTask_9">
+        <di:waypoint xsi:type="dc:Point" x="474.0" y="259.0"/>
+        <di:waypoint xsi:type="dc:Point" x="507.0" y="259.0"/>
+        <di:waypoint xsi:type="dc:Point" x="590.0" y="259.0"/>
+        <di:waypoint xsi:type="dc:Point" x="590.0" y="202.0"/>
+        <di:waypoint xsi:type="dc:Point" x="590.0" y="172.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="567.0" y="259.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

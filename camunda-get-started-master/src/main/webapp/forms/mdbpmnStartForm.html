@@ -1,0 +1,57 @@
+<form name="startProcess" id="startProcess"><div id="startDiv"></div>
+<script cam-script type="text/form-script">
+  	variableManager = camForm.variableManager;
+	result = "";
+	splitStr = camForm.formUrl.split("/");
+
+	camForm.on('submit', function(evt) {
+		var form = $('#startProcess');
+		$.ajax({
+			type: 'POST',
+			url: '/' + splitStr[1] + '/StartProcessServlet',
+			data: form.serialize(),
+			success: function (data) {
+				result=data;
+			},
+			async: false
+		});
+		
+		var variables = result.split(";");
+		var length = variables.length - 1;
+
+		document.getElementById('errorMessagesStart').style.display='none';
+   
+		if (variables[0] == "VALIDATION_ERROR") {
+			evt.submitPrevented = true;
+			var errorMessages = "";
+			for (var i = 1; i < length; i++) {
+				var values = variables[i].split(":");
+				document.getElementById(values[0]).style.borderColor="#FF0000";
+				var label = $("label[for='" + values[0] + "']").html();
+				errorMessages += '<strong>' + label + ': </strong>' + values[1] + '<br>';
+			}
+			document.getElementById('errorMessagesStart').innerHTML = errorMessages;
+			document.getElementById('errorMessagesStart').style.display='block';
+		} else if (variables[0] == "EXCEPTION") {
+			evt.submitPrevented = true;
+			document.getElementById('errorMessagesStart').innerHTML = '<strong>EXCEPTION: </strong>' + variables[1];
+			document.getElementById('errorMessagesStart').style.display='block'; 
+		} else {
+			for (var i = 0; i < length; i++) {
+				var values = variables[i].split(":");
+				variableManager.createVariable({
+        			name: values[0],
+        			type: 'String',
+        			value: values[1],
+        			isDirty: false
+      			});
+			}
+		}
+    });
+
+var userLang = navigator.language || navigator.userLanguage; 
+var processKey = camForm.processDefinitionId;
+$("#startDiv").load("http://localhost:8080/camunda-get-started-master/GetForm?processKey=" + processKey + "&language=" + userLang);
+</script>
+</form>
+    

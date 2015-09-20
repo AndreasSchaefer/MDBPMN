@@ -1,0 +1,78 @@
+<form name="userTask" id="userTask"><div id="formDiv"></div>
+<script cam-script type="text/form-script">
+  	variableManager = camForm.variableManager;
+	result = "";
+	splitStr = camForm.formUrl.split("/");
+	var existVariables;
+
+	camForm.on('form-loaded', function() {
+    	$.ajax({
+			type: 'GET',
+			url: '/' + splitStr[1] + '/GetVariables',
+			data: { processKey: camForm.taskId },
+			success: function (data) {
+				existVariables= data.split(":");
+			},
+			async: false
+		});
+		var length = existVariables.length - 1;
+		for (var i = 0; i < length; i++) {
+			variableManager.fetchVariable(existVariables[i]);
+		}
+  	});
+
+	camForm.on('submit', function(evt) {
+		var form = $('#userTask');
+		$.ajax({
+			type: 'POST',
+			url: '/../../../camunda-get-started-master/StartProcessServlet',
+			data: form.serialize(),
+			success: function (data) {
+				result=data;
+			},
+			async: false
+		});
+		
+		var variables = result.split(";");
+		var length = variables.length - 1;
+
+		document.getElementById('errorMessages').style.display='none';
+   
+		if (variables[0] == "VALIDATION_ERROR") {
+			evt.submitPrevented = true;
+			var errorMessages = "";
+			for (var i = 1; i < length; i++) {
+				var values = variables[i].split(":");
+				document.getElementById(values[0]).style.borderColor="#FF0000";
+				var label = $("label[for='" + values[0] + "']").html();
+				errorMessages += '<strong>' + label + ': </strong>' + values[1] + '<br>';
+			}
+			document.getElementById('errorMessages').innerHTML = errorMessages;
+			document.getElementById('errorMessages').style.display='block';
+		} else if (variables[0] == "EXCEPTION") {
+			evt.submitPrevented = true;
+			document.getElementById('errorMessages').innerHTML = '<strong>EXCEPTION: </strong>' + variables[1];
+			document.getElementById('errorMessages').style.display='block'; 
+		} else {
+			for (var i = 0; i < length; i++) {
+				var values = variables[i].split(":");
+				if ($.inArray(values[0], existVariables) != -1) {
+					variableManager.destroyVariable(values[0]);
+				}
+					variableManager.createVariable({
+        				name: values[0],
+        				type: 'String',
+        				value: values[1],
+        				isDirty: true
+      				});
+			}
+			evt.submitPrevented = false;
+		}
+    });
+
+var userLang = navigator.language || navigator.userLanguage; 
+var processKey = camForm.taskId;
+$("#formDiv").load("http://localhost:8080/camunda-get-started-master/GetForm?processKey=" + processKey + "&language=" + userLang);
+</script>
+</form>
+    
